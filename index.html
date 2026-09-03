@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kadanova | Embedded Systems &amp; Applied AI</title>
+  <title>Kadanova | Embedded Solutions</title>
   <meta name="description" content="Kadanova — precision embedded engineering, applied AI, IoT and robotics for teams building at the edge." />
-  <link rel="icon" type="image/png" href="assets/logo/kadanova_logo.png">
+  <link rel="icon" type="image/png" href="assets/logo/kadanova_logo_title.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -121,16 +121,15 @@
     }
 
     /* ---- 3. Hero: clean (no extra overlay) ---- */
-    .hero .container {
-  padding: 0;
-  max-width: 100%;
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+    }
     .hero-image-wrap {
       position: absolute;
       inset: 0;
@@ -486,9 +485,10 @@
 
   <!-- ===== TOP NAVBAR ===== -->
   <header class="top-nav" id="topNav">
-    <a href="index.html" class="nav-brand" aria-label="Kadanova home">
-    <img src="assets/logo/kadanova_logo.png" alt="Kadanova logo">
-    </a>
+<a href="index.html" class="nav-brand" aria-label="Kadanova home">
+  <img src="assets/logo/kadanova_logo.png" alt="Kadanova star" class="nav-brand-star">
+  <img src="assets/logo/kadanova_logo_1.png" alt="Kadanova" class="nav-brand-word">
+</a>
     <div class="nav-links">
       <a href="index.html" class="nav-link active">Home</a>
       <a href="projects.html" class="nav-link">Projects</a>
@@ -898,7 +898,7 @@
   <div class="container footer-content">
     <div class="footer-brand-wrapper">
       <img src="assets/images/logo_kadanova.png" alt="Kadanova full logo" class="footer-logo">
-      <p class="footer-text">&copy; 2025 Kadanova &mdash; Precision beyond stars</p>
+      <p class="footer-text">&copy; 2025 KADANOVA &mdash; Precision beyond stars</p>
     </div>
   </div>
 </footer>
