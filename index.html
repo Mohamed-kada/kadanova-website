@@ -121,15 +121,16 @@
     }
 
     /* ---- 3. Hero: clean (no extra overlay) ---- */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding: 0;
-    }
+    .hero .container {
+  padding: 0;
+  max-width: 100%;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
     .hero-image-wrap {
       position: absolute;
       inset: 0;
@@ -439,6 +440,45 @@
       .why-card-full::after,
       .hero .scroll-cue span { animation: none !important; }
     }
+    /* ---- Footer with logo ---- */
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+  text-align: center;
+}
+.footer-brand-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.footer-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+  opacity: 0.85;
+  transition: opacity .3s var(--ease);
+}
+.footer-logo:hover {
+  opacity: 1;
+}
+.footer-text {
+  font-size: 14px;
+  color: var(--ink-dim);
+  margin: 0;
+}
+.footer-logo {
+  height: 200px;
+  width: auto;
+}
+
+@media (max-width: 600px) {
+  .footer-logo {
+    height: 300px;   /* smaller on phones */
+  }
+}
   </style>
 </head>
 <body>
@@ -855,10 +895,13 @@
   </main>
 
   <footer>
-    <div class="container footer-content">
-      <p class="footer-text">&copy; 2026 Kadanova &mdash; Precision beyond stars</p>
+  <div class="container footer-content">
+    <div class="footer-brand-wrapper">
+      <img src="assets/images/logo_kadanova.png" alt="Kadanova full logo" class="footer-logo">
+      <p class="footer-text">&copy; 2025 Kadanova &mdash; Precision beyond stars</p>
     </div>
-  </footer>
+  </div>
+</footer>
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
   </script>

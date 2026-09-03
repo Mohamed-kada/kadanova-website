@@ -84,13 +84,17 @@ main{position:relative;z-index:1}
 section{position:relative}
 section#home{padding-top:0}
 
-.eyebrow{
-  font-family:var(--font-mono);
-  font-size:12.5px;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-  color:var(--accent-soft);
-  margin:0 0 14px;
+.eyebrow,
+.founders-hero-content .eyebrow,
+.contact-hero-content .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 15px;              /* was 12.5–13px */
+  font-weight: 600;              /* JetBrains Mono supports 500/600 per your font import */
+  letter-spacing: 0.22em;        /* was 0.14em — wider tracking */
+  text-transform: uppercase;
+  color: var(--accent-soft);
+      margin-bottom: 16px;
+
 }
 
 .section-title{
