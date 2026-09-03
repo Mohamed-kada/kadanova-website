@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kadanova | Contact Us</title>
+  <meta name="description" content="Get in touch with Kadanova — we're here to help." />
+  <link rel="icon" type="image/png" href="assets/logo/kadanova_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* =========================================================
+       OVERRIDES & ADDITIONS
+       ========================================================= */
+
+    /* ---- 1. Top Navbar (same as projects) ---- */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 90;
+      padding: 0 24px;
+      background: rgba(6, 7, 11, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color .3s var(--ease);
+    }
+    .nav-brand {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-brand img {
+  height: 34px;
+  width: auto;
+  display: block;
+  border-radius: 6px;
+  transition: opacity .3s var(--ease);
+}
+.nav-brand:hover img {
+  opacity: 0.8;
+}
+    .nav-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .3s var(--ease), background .3s var(--ease);
+    }
+    .nav-link:hover {
+      color: var(--ink-bright);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-link.active {
+      color: var(--accent-soft);
+      background: rgba(62, 160, 255, 0.12);
+    }
+    .nav-home-btn {
+      flex: 0 0 auto;
+      margin-left: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-home-btn a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink-dim);
+      transition: all .3s var(--ease);
+      text-decoration: none;
+    }
+    .nav-home-btn a:hover {
+      border-color: var(--glass-border-hi);
+      color: var(--ink-bright);
+      background: rgba(62, 160, 255, 0.10);
+      transform: translateY(-2px);
+    }
+    .nav-home-btn a svg {
+      width: 18px;
+      height: 18px;
+    }
+    @media (max-width: 768px) {
+      .top-nav { padding: 0 12px; height: 54px; }
+      .nav-link { padding: 6px 10px; font-size: 12px; }
+      .nav-home-btn a { width: 32px; height: 32px; }
+      .nav-home-btn a svg { width: 16px; height: 16px; }
+    }
+    @media (max-width: 480px) {
+      .nav-link { padding: 4px 8px; font-size: 11px; }
+      .top-nav { padding: 0 8px; }
+    }
+
+    .side-nav, .brand-fixed { display: none !important; }
+    .scroll-rail { left: 22px; top: 50%; transform: translateY(-50%); }
+
+    /* ---- 2. Hero ---- */
+    .contact-hero {
+      position: relative;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+      margin-top: 60px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .contact-hero-image-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .contact-hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.4;
+    }
+    .contact-hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(6, 7, 11, 0.60);
+      backdrop-filter: blur(2px) saturate(120%);
+      -webkit-backdrop-filter: blur(2px) saturate(120%);
+    }
+    .contact-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 60px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .contact-hero-content .eyebrow {
+      color: var(--accent-soft);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+    .contact-hero-content h1 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 800;
+      font-size: clamp(42px, 7vw, 76px);
+      color: var(--ink-bright);
+      margin: 0 0 16px;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .contact-hero-content h1 span {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .contact-hero-content p {
+      font-size: clamp(16px, 1.4vw, 20px);
+      color: var(--ink-dim);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 3. Contact Content ---- */
+    .contact-section {
+      padding: 80px 24px 100px;
+      background: var(--bg);
+    }
+    .contact-section .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* contact info */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .contact-info h2 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 700;
+      font-size: clamp(24px, 2.6vw, 34px);
+      color: var(--ink-bright);
+      margin: 0 0 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .contact-info h2 span {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .contact-info .lead {
+      font-size: 16px;
+      color: var(--ink-dim);
+      line-height: 1.7;
+      margin: 0 0 16px;
+      font-family: var(--font-body);
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 16px 20px;
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      transition: border-color .3s var(--ease), background .3s var(--ease);
+    }
+    .contact-item:hover {
+      border-color: var(--glass-border-hi);
+      background: var(--glass-fill-2);
+    }
+    .contact-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--accent-soft);
+      flex: none;
+      margin-top: 2px;
+    }
+    .contact-text .contact-label {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 4px;
+    }
+    .contact-text .contact-value {
+      font-size: 15px;
+      color: var(--ink-bright);
+      line-height: 1.5;
+      font-family: var(--font-body);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-fill);
+      color: var(--ink);
+      transition: all .3s var(--ease);
+      text-decoration: none;
+    }
+    .social-link svg {
+      width: 20px;
+      height: 20px;
+    }
+    .social-link:hover {
+      color: var(--ink-bright);
+      border-color: var(--glass-border-hi);
+      transform: translateY(-3px);
+      background: var(--glass-fill-2);
+    }
+
+    /* contact form */
+    .contact-form-wrapper {
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 40px -26px rgba(0, 0, 0, 0.7);
+      transition: border-color .3s var(--ease);
+    }
+    .contact-form-wrapper:hover {
+      border-color: var(--glass-border-hi);
+    }
+    .contact-form-wrapper h3 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--ink-bright);
+      margin: 0 0 6px;
+      letter-spacing: 0.04em;
+    }
+    .contact-form-wrapper .form-sub {
+      font-size: 14px;
+      color: var(--ink-dim);
+      margin: 0 0 24px;
+      font-family: var(--font-body);
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-dim);
+      margin-bottom: 8px;
+      font-family: var(--font-body);
+    }
+    .form-input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--ink-bright);
+      font-family: var(--font-body);
+      font-size: 14.5px;
+      transition: border-color .25s var(--ease), background .25s var(--ease);
+    }
+    .form-input::placeholder {
+      color: var(--ink-dim);
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--glass-border-hi);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .submit-btn {
+      width: 100%;
+      margin-top: 6px;
+      border: none;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 26px;
+      border-radius: 999px;
+      cursor: pointer;
+      color: #04121f;
+      background: linear-gradient(180deg, var(--accent-soft), var(--accent));
+      box-shadow: 0 10px 30px -8px rgba(62, 160, 255, 0.55);
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -8px rgba(62, 160, 255, 0.7);
+    }
+    .form-message {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      display: none;
+      font-family: var(--font-body);
+    }
+    .form-message.success {
+      display: block;
+      background: rgba(62, 160, 255, 0.12);
+      border: 1px solid rgba(62, 160, 255, 0.3);
+      color: var(--accent-soft);
+    }
+    .form-message.error {
+      display: block;
+      background: rgba(255, 90, 90, 0.1);
+      border: 1px solid rgba(255, 90, 90, 0.3);
+      color: #ff9d9d;
+    }
+
+    /* ---- 4. Footer ---- */
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-content .brand,
+    .footer-content .footer-brand { display: none !important; }
+    .footer-text {
+      font-size: 14px;
+      color: var(--ink-dim);
+      margin: 0;
+      width: 100%;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 5. Reveal animations ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- 6. Responsive ---- */
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .contact-section {
+        padding: 50px 16px 70px;
+      }
+      .contact-hero {
+        min-height: 40vh;
+      }
+      .contact-hero-content {
+        padding: 40px 16px;
+      }
+    }
+    @media (max-width: 480px) {
+      .contact-section {
+        padding: 30px 12px 50px;
+      }
+      .contact-hero {
+        min-height: 30vh;
+      }
+      .contact-form-wrapper {
+        padding: 24px 16px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grid" aria-hidden="true"></canvas>
+
+  <!-- ===== TOP NAVBAR ===== -->
+  <header class="top-nav" id="topNav">
+    <a href="index.html" class="nav-brand" aria-label="Kadanova home">
+    <img src="assets/logo/kadanova_logo.png" alt="Kadanova logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="founders.html" class="nav-link">Team</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>    </div>
+    <div class="nav-home-btn">
+      <a href="index.html" aria-label="Return to home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12l9-9 9 9"/>
+          <path d="M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== SCROLL RAIL ===== -->
+  <div class="scroll-rail" id="scrollRail">
+    <div class="scroll-rail-track">
+      <div class="scroll-rail-fill" id="scrollRailFill"></div>
+    </div>
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <main>
+
+    <!-- ========== CONTACT HERO ========== -->
+    <section class="contact-hero" id="contact-hero">
+      <div class="contact-hero-image-wrap">
+        <img src="assets/images/hero.png" alt="Contact us" class="contact-hero-image">
+      </div>
+      <div class="contact-hero-overlay"></div>
+      <div class="contact-hero-content reveal">
+        <p class="eyebrow">Get in touch</p>
+        <h1><span>Contact Us</span></h1>
+        <p>We're at your disposal to offer the best possible service. Reach out and let's build something extraordinary.</p>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT CONTENT ========== -->
+    <section class="contact-section" id="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- Info side -->
+          <div class="contact-info reveal">
+            <div>
+              <h2><span>Reach out</span></h2>
+              <p class="lead">Whether you have a technical challenge, a partnership idea, or just want to say hello — we're here.</p>
+            </div>
+
+            <div class="contact-details">
+              <div class="contact-item">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="none"><path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                <div class="contact-text">
+                  <div class="contact-label">Location</div>
+                  <div class="contact-value">13 rue Ribat, Manzah 8<br>2037 Ariana, Tunisia</div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="none"><path d="M5 4H9L11 9L8.5 10.5C9.57 12.67 11.33 14.43 13.5 15.5L15 13L20 15V19C20 19.53 19.79 20.04 19.41 20.41C19.04 20.79 18.53 21 18 21C14.1 20.76 10.42 19.11 7.66 16.34C4.89 13.58 3.24 9.9 3 6C3 5.47 3.21 4.96 3.59 4.59C3.96 4.21 4.47 4 5 4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="contact-text">
+                  <div class="contact-label">Phone</div>
+                  <div class="contact-value">+216 20 478 447</div>
+                  <div class="contact-value">+216 58 659 373</div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="none"><path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="contact-text">
+                  <div class="contact-label">Email</div>
+                  <div class="contact-value">contact@kadanova.com</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a class="social-link" href="https://www.linkedin.com/company/kadanova/" target="_blank" rel="noopener" aria-label="Kadanova on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6.94 8.5H4V20h2.94V8.5ZM5.47 4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM20 20h-2.94v-6.05c0-1.44-.5-2.42-1.78-2.42-.97 0-1.55.65-1.8 1.28-.1.22-.12.53-.12.84V20H10.4s.04-10.68 0-11.5h2.95v1.63a2.93 2.93 0 0 1 2.66-1.47c1.94 0 3.99 1.26 3.99 3.98V20Z" fill="currentColor"/></svg>
+              </a>
+              <a class="social-link" href="https://www.facebook.com/profile.php?id=61583871494696" target="_blank" rel="noopener" aria-label="Kadanova on Facebook">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M13.5 21v-7.6h2.6l.4-3H13.5V8.4c0-.87.24-1.46 1.5-1.46h1.6V4.28C16.3 4.2 15.34 4.1 14.2 4.1c-2.3 0-3.87 1.4-3.87 3.97v2.33H7.7v3h2.63V21h3.17Z" fill="currentColor"/></svg>
+              </a>
+              <a class="social-link" href="https://www.instagram.com/kadanova_official/" target="_blank" rel="noopener" aria-label="Kadanova on Instagram">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Form side -->
+          <div class="contact-form-wrapper reveal">
+            <h3>Send a message</h3>
+            <p class="form-sub">We reply within 24 hours.</p>
+
+            <form id="contactForm">
+              <div class="form-group">
+                <label class="form-label" for="name">Your name</label>
+                <input type="text" id="name" class="form-input" placeholder="John Doe" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Your email</label>
+                <input type="email" id="email" class="form-input" placeholder="john@example.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="subject">Subject</label>
+                <input type="text" id="subject" class="form-input" placeholder="Project inquiry" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="message">Message</label>
+                <textarea id="message" class="form-input form-textarea" placeholder="Tell us about your project..." required></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send message</button>
+            </form>
+            <div id="formMessage" class="form-message"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container footer-content">
+      <p class="footer-text">&copy; 2026 Kadanova &mdash; Precision beyond stars</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script src="script.js">
+  </script>
+
+  <!-- ===== REVEAL OBSERVER & FORM HANDLER ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Reveal animations
+      const items = document.querySelectorAll('.reveal');
+      if (items.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        items.forEach(item => observer.observe(item));
+      }
+
+      // Contact form (using EmailJS – same as index)
+      const form = document.getElementById('contactForm');
+      if (form && typeof emailjs !== 'undefined') {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const subject = document.getElementById('subject').value;
+          const message = document.getElementById('message').value;
+          const formMessage = document.getElementById('formMessage');
+          const submitBtn = this.querySelector('.submit-btn');
+          const originalText = submitBtn.textContent;
+
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+          formMessage.style.display = 'none';
+          formMessage.className = 'form-message';
+
+          Promise.all([
+            emailjs.send('service_wbm88oc', 'template_zad8hyq', {
+              from_name: name,
+              from_email: email,
+              subject: 'New Contact Form: ' + subject,
+              message: message,
+              to_email: 'kadanova.ste@gmail.com'
+            }),
+            emailjs.send('service_wbm88oc', 'template_zad8hyq', {
+              from_name: 'Kadanova Team',
+              from_email: 'kadanova.ste@gmail.com',
+              subject: 'Thank you for contacting Kadanova',
+              message: `Hi ${name},\n\nThank you for your message! We have received your inquiry and our team will get back to you within 24 hours.\n\nBest regards,\nKadanova Team`,
+              to_email: email
+            })
+          ])
+          .then(function() {
+            formMessage.textContent = 'Thank you for your message — a confirmation email is on its way.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            form.reset();
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          })
+          .catch(function(error) {
+            console.log('EmailJS error:', error);
+            formMessage.textContent = 'Sorry, something went wrong. Please try again or email us directly at kadanova.ste@gmail.com';
+            formMessage.className = 'form-message error';
+            formMessage.style.display = 'block';
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          })
+          .finally(function() {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

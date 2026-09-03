@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kadanova | Embedded Systems &amp; Applied AI</title>
+  <meta name="description" content="Kadanova — precision embedded engineering, applied AI, IoT and robotics for teams building at the edge." />
+  <link rel="icon" type="image/png" href="assets/logo/kadanova_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* =========================================================
+       OVERRIDES & ADDITIONS (CLEAN – no glassy overlays)
+       ========================================================= */
+
+    /* ---- 1. Top Navbar ---- */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 90;
+      padding: 0 24px;
+      background: rgba(6, 7, 11, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color .3s var(--ease);
+    }
+    .nav-brand {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+.nav-brand img {
+  height: 34px;
+  width: auto;
+  display: block;
+  border-radius: 6px;
+  transition: opacity .3s var(--ease);
+}
+.nav-brand:hover img {
+  opacity: 0.8;
+}
+
+    .nav-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .3s var(--ease), background .3s var(--ease);
+    }
+    .nav-link:hover {
+      color: var(--ink-bright);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-link.active {
+      color: var(--accent-soft);
+      background: rgba(62, 160, 255, 0.12);
+    }
+    @media (max-width: 768px) {
+      .top-nav { padding: 0 12px; height: 54px; }
+      .nav-link { padding: 6px 10px; font-size: 12px; }
+    }
+    @media (max-width: 480px) {
+      .nav-link { padding: 4px 8px; font-size: 11px; }
+    }
+
+    /* ---- 2. Sub-nav ---- */
+    .sub-nav {
+      position: sticky;
+      top: 60px;
+      z-index: 79;
+      background: rgba(6, 7, 11, 0.70);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 8px 16px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .sub-nav a {
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 999px;
+      transition: all .3s var(--ease);
+      letter-spacing: 0.02em;
+    }
+    .sub-nav a:hover {
+      color: var(--ink-bright);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .sub-nav a:active,
+    .sub-nav a:focus-visible {
+      color: var(--accent-soft);
+    }
+    @media (max-width: 600px) {
+      .sub-nav { gap: 6px; padding: 6px 10px; }
+      .sub-nav a { font-size: 12px; padding: 4px 10px; }
+    }
+
+    /* ---- 3. Hero: clean (no extra overlay) ---- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-image-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 38px;
+      transform: translateX(-50%);
+      z-index: 2;
+      width: 26px;
+      height: 42px;
+      border-radius: 16px;
+      border: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: center;
+      padding-top: 8px;
+      background: rgba(6, 7, 11, 0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: border-color .3s var(--ease), background .3s var(--ease);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .hero .scroll-cue:hover {
+      border-color: var(--glass-border-hi);
+      background: rgba(62, 160, 255, 0.12);
+    }
+    .hero .scroll-cue span {
+      display: block;
+      width: 4px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--accent-soft);
+      animation: scrollcue 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollcue {
+      0% { transform: translateY(0); opacity: 1; }
+      70% { transform: translateY(14px); opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .hero .container {
+      padding: 0;
+      max-width: 100%;
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero .hero-glow,
+    .hero .hero-grid,
+    .hero .hero-left,
+    .hero .hero-media,
+    .hero .hero-image-arrow {
+      display: none;
+    }
+    .hero .scroll-cue {
+      display: flex !important;
+    }
+
+    /* ---- 4. About: full‑width, centered, NO glassy overlay ---- */
+    #about .container {
+      max-width: 100%;
+      padding: 100px 40px;
+    }
+    #about .about-container {
+      display: block;
+      text-align: center;
+    }
+    #about .about-copy {
+      max-width: 100%;
+      flex: none;
+      margin: 0 auto;
+    }
+    #about .section-lead {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--ink);
+    }
+    #about .about-tags {
+      display: none !important;
+    }
+
+    /* ---- 5. What We Do: remove icons and counters ---- */
+    .what-slide-media .slide-img {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .what-slide-media .slide-img { min-height: 220px; }
+    }
+    .what-slide .slide-count,
+    .what-slide .card-icon {
+      display: none !important;
+    }
+    .what-slide-content {
+      padding: 52px 56px 52px 8px;
+    }
+    @media (max-width: 768px) {
+      .what-slide-content { padding: 28px 22px 36px; }
+    }
+
+    /* ---- 6. Why Choose Us: full-bleed cards with <img> bg ---- */
+    #why .container {
+      padding-left: 0;
+      padding-right: 0;
+      max-width: 100%;
+    }
+    #why .section-head {
+      padding: 0 24px;
+      max-width: var(--max-width);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .why-fullwidth {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 24px;
+    }
+    .why-card-full {
+      position: relative;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      background: var(--bg);
+      padding: 0;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
+    }
+    .why-card-full:hover {
+      transform: none;
+      border-color: var(--glass-border-hi);
+      box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7), 0 0 60px -20px rgba(62, 160, 255, 0.20);
+      z-index: 2;
+    }
+    .why-card-full .card-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(135deg, rgba(6, 7, 11, 0.88), rgba(6, 7, 11, 0.70));
+      transition: transform .6s var(--ease);
+    }
+    .why-card-full:hover .card-bg {
+      transform: scale(1.01);
+    }
+    .why-card-full .card-bg-img {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.30;
+      transition: opacity .5s var(--ease);
+    }
+    .why-card-full:hover .card-bg-img {
+      opacity: 0.45;
+    }
+    .why-card-full .card-content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      width: 100%;
+      padding: 52px 32px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 340px;
+    }
+    .why-card-full .card-content .chip {
+      margin-bottom: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(62, 160, 255, 0.10);
+      border-color: rgba(62, 160, 255, 0.30);
+      box-shadow: 0 0 18px rgba(62, 160, 255, 0.08);
+      transition: box-shadow .4s var(--ease), background .4s var(--ease);
+    }
+    .why-card-full:hover .card-content .chip {
+      box-shadow: 0 0 32px rgba(62, 160, 255, 0.25);
+      background: rgba(62, 160, 255, 0.18);
+    }
+    .why-card-full .card-content .card-title {
+      font-size: clamp(22px, 2.6vw, 34px);
+      color: var(--ink-bright);
+      margin: 0 0 8px;
+    }
+    .why-card-full .card-content .card-subtitle {
+      font-size: clamp(15px, 1.4vw, 18px);
+      color: var(--ink-dim);
+      max-width: 600px;
+      margin: 0;
+    }
+    .why-card-full .card-content .card-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--glass-border);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    /* ---- 7. Glassy shine effect on all cards (original) ---- */
+    .glass-card,
+    .why-card-full {
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-card::after,
+    .why-card-full::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.00) 0%,
+          rgba(255, 255, 255, 0.00) 40%,
+          rgba(255, 255, 255, 0.04) 48%,
+          rgba(255, 255, 255, 0.08) 52%,
+          rgba(255, 255, 255, 0.00) 60%,
+          rgba(255, 255, 255, 0.00) 100%);
+      opacity: 0;
+      transform: translateX(-100%) skewX(-15deg);
+      transition: opacity .5s var(--ease), transform .7s var(--ease);
+    }
+    .glass-card:hover::after,
+    .why-card-full:hover::after {
+      opacity: 1;
+      transform: translateX(100%) skewX(-15deg);
+    }
+
+    /* ---- 8. Footer ---- */
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-content .brand,
+    .footer-content .footer-brand {
+      display: none !important;
+    }
+    .footer-text {
+      font-size: 14px;
+      color: var(--ink-dim);
+      margin: 0;
+      width: 100%;
+    }
+
+    /* ---- 9. Scroll rail ---- */
+    .scroll-rail {
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .side-nav,
+    .brand-fixed {
+      display: none !important;
+    }
+
+    /* ---- responsive tweaks ---- */
+    @media (max-width: 900px) {
+      .why-card-full .card-content { padding: 40px 24px; min-height: 280px; }
+      #why .section-head { padding: 0 20px; }
+      .sub-nav { top: 54px; }
+      #about .container { padding: 70px 24px; }
+    }
+    @media (max-width: 480px) {
+      .why-card-full .card-content { padding: 32px 18px; min-height: 240px; }
+      .sub-nav { top: 54px; }
+      #about .container { padding: 50px 16px; }
+      #about .section-lead { max-width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .glass-card::after,
+      .why-card-full::after,
+      .hero .scroll-cue span { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grid" aria-hidden="true"></canvas>
+
+  <!-- ===== TOP NAVBAR ===== -->
+  <header class="top-nav" id="topNav">
+    <a href="index.html" class="nav-brand" aria-label="Kadanova home">
+    <img src="assets/logo/kadanova_logo.png" alt="Kadanova logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="founders.html" class="nav-link">Team</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </div>
+  </header>
+
+  <!-- Scroll progress rail + back-to-top -->
+  <div class="scroll-rail" id="scrollRail">
+    <div class="scroll-rail-track">
+      <div class="scroll-rail-fill" id="scrollRailFill"></div>
+    </div>
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <main>
+
+    <!-- ========== HERO – clean, no overlay ========== -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-image-wrap">
+          <img src="assets/images/hero.jpeg" alt="Kadanova hero" class="hero-image">
+        </div>
+        <a class="scroll-cue" href="#about" aria-label="Scroll to next section"><span></span></a>
+      </div>
+    </section>
+
+    <!-- ===== SUB-NAV (on‑page sections) ===== -->
+    <nav class="sub-nav" id="subNav">
+      <a href="#about">About</a>
+      <a href="#what">What We Do</a>
+      <a href="#services">Services</a>
+      <a href="#why">Why Us</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- ========== ABOUT – full‑width, centered, no overlay ========== -->
+    <section id="about">
+      <div class="container">
+        <div class="about-container">
+          <div class="about-copy reveal">
+            <p class="eyebrow">Our mission</p>
+            <h2 class="section-title">Engineering that survives contact with reality</h2>
+            <p class="section-lead">Kadanova designs robust embedded platforms and deployable AI that operate safely at the edge. From firmware to neural nets, we bring product-oriented engineering to latency-critical, resource-constrained environments, where a “good enough” model or a flaky driver simply isn’t an option.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WHAT WE DO ========== -->
+    <section id="what">
+      <div class="container what-container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Capabilities</p>
+          <h2 class="section-title">What we do</h2>
+          <p class="section-lead">Four disciplines, one engineering culture — precise, tested, and built to ship.</p>
+        </div>
+
+        <div class="what-slider reveal" id="whatSlider">
+          <div class="what-track" id="whatTrack">
+
+            <!-- Slide 1: Embedded Systems -->
+            <article class="what-slide" data-index="0">
+              <div class="what-slide-media">
+                <img src="assets/images/what-embedded.png" alt="Embedded Systems" class="slide-img">
+              </div>
+              <div class="what-slide-content">
+                <h3 class="card-title">Embedded Systems</h3>
+                <p class="card-subtitle">Custom firmware, real-time OS integration and low-power PCB bring-up.</p>
+                <ul class="card-bullets">
+                  <li>Custom firmware development</li>
+                  <li>Real-time OS integration</li>
+                  <li>Low-power PCB bring-up</li>
+                  <li>Safety-first embedded design</li>
+                </ul>
+                <div class="card-footer">Reliable &amp; efficient</div>
+              </div>
+            </article>
+
+            <!-- Slide 2: Artificial Intelligence -->
+            <article class="what-slide" data-index="1">
+              <div class="what-slide-media">
+                <img src="assets/images/what-ai.png" alt="Artificial Intelligence" class="slide-img">
+              </div>
+              <div class="what-slide-content">
+                <h3 class="card-title">Artificial Intelligence</h3>
+                <p class="card-subtitle">Model development and quantized inference at the edge.</p>
+                <ul class="card-bullets">
+                  <li>Model development</li>
+                  <li>Quantized edge inference</li>
+                  <li>Computer vision</li>
+                  <li>Custom AI pipelines</li>
+                </ul>
+                <div class="card-footer">Optimized for embedded hardware</div>
+              </div>
+            </article>
+
+            <!-- Slide 3: IoT & Cloud -->
+            <article class="what-slide" data-index="2">
+              <div class="what-slide-media">
+                <img src="assets/images/what-iot.png" alt="IoT and Cloud" class="slide-img">
+              </div>
+              <div class="what-slide-content">
+                <h3 class="card-title">IoT &amp; Cloud</h3>
+                <p class="card-subtitle">Secure connectivity, telemetry and OTA updates at scale.</p>
+                <ul class="card-bullets">
+                  <li>Secure connectivity</li>
+                  <li>Telemetry systems</li>
+                  <li>OTA updates</li>
+                  <li>Cloud-native tooling</li>
+                </ul>
+                <div class="card-footer">Manageable at scale</div>
+              </div>
+            </article>
+
+            <!-- Slide 4: Robotics -->
+            <article class="what-slide" data-index="3">
+              <div class="what-slide-media">
+                <img src="assets/images/what-robotics.png" alt="Robotics" class="slide-img">
+              </div>
+              <div class="what-slide-content">
+                <h3 class="card-title">Robotics</h3>
+                <p class="card-subtitle">Real-time control, sensor fusion and embedded perception.</p>
+                <ul class="card-bullets">
+                  <li>Real-time control</li>
+                  <li>Sensor fusion</li>
+                  <li>Embedded perception stacks</li>
+                  <li>Autonomous systems</li>
+                </ul>
+                <div class="card-footer">Reliable &amp; autonomous</div>
+              </div>
+            </article>
+
+          </div>
+
+          <button class="slider-arrow prev" id="whatPrev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 5 8 12l7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="slider-arrow next" id="whatNext" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <div class="slider-dots" id="whatDots">
+            <button class="slider-dot active" data-index="0" aria-label="Show Embedded Systems"></button>
+            <button class="slider-dot" data-index="1" aria-label="Show Artificial Intelligence"></button>
+            <button class="slider-dot" data-index="2" aria-label="Show IoT and Cloud"></button>
+            <button class="slider-dot" data-index="3" aria-label="Show Robotics"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SERVICES ========== -->
+    <section id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Engagement</p>
+          <h2 class="section-title">Our services</h2>
+          <p class="section-lead">Bring us a problem at any stage — strategy, build, or both.</p>
+        </div>
+
+        <div class="card-grid services-grid">
+          <article class="glass-card reveal">
+            <h3 class="card-title">Consulting</h3>
+            <p class="card-subtitle">Expert guidance for your embedded and AI projects.</p>
+            <ul class="card-bullets">
+              <li>Technical feasibility analysis</li>
+              <li>Architecture planning</li>
+              <li>Technology stack selection</li>
+              <li>Risk assessment &amp; mitigation</li>
+            </ul>
+            <div class="card-footer">Strategic guidance</div>
+          </article>
+
+          <article class="glass-card reveal">
+            <h3 class="card-title">Finding Solutions</h3>
+            <p class="card-subtitle">Innovative approaches to complex technical challenges.</p>
+            <ul class="card-bullets">
+              <li>Custom algorithm development</li>
+              <li>Performance optimization</li>
+              <li>Integration strategies</li>
+              <li>Proof-of-concept validation</li>
+            </ul>
+            <div class="card-footer">Innovative approaches</div>
+          </article>
+
+          <article class="glass-card reveal">
+            <h3 class="card-title">Designing &amp; Prototyping</h3>
+            <p class="card-subtitle">From concept to functional prototype.</p>
+            <ul class="card-bullets">
+              <li>System architecture design</li>
+              <li>PCB layout &amp; prototyping</li>
+              <li>Firmware development</li>
+              <li>Functional testing &amp; validation</li>
+            </ul>
+            <div class="card-footer">From concept to reality</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WHY CHOOSE US ========== -->
+    <section id="why">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">The Kadanova difference</p>
+          <h2 class="section-title">Why choose us</h2>
+        </div>
+
+        <div class="why-fullwidth">
+
+          <article class="why-card-full reveal">
+            <div class="card-bg"></div>
+            <img src="assets/images/why-ai-native.png" alt="AI native" class="card-bg-img">
+            <div class="card-content">
+              <span class="chip">AI-native</span>
+              <h3 class="card-title">Pioneering AI innovation</h3>
+              <p class="card-subtitle">Deep expertise in machine learning and data science, applied at the frontier of what current hardware can actually run, not just what's fashionable in a paper.</p>
+              <div class="card-footer">Visionary technology leadership</div>
+            </div>
+          </article>
+
+          <article class="why-card-full reveal">
+            <div class="card-bg"></div>
+            <img src="assets/images/why-bespoke.png" alt="Bespoke solutions" class="card-bg-img">
+            <div class="card-content">
+              <span class="chip">Bespoke</span>
+              <h3 class="card-title">Solutions built for you</h3>
+              <p class="card-subtitle">Custom-designed products aligned with your goals, not a repackaged template.</p>
+              <div class="card-footer">Tailored to your needs</div>
+            </div>
+          </article>
+
+          <article class="why-card-full reveal">
+            <div class="card-bg"></div>
+            <img src="assets/images/why-fullstack.png" alt="Full stack" class="card-bg-img">
+            <div class="card-content">
+              <span class="chip">Full-stack</span>
+              <h3 class="card-title">End-to-end excellence</h3>
+              <p class="card-subtitle">Full-spectrum support from ideation to deployment, with one team accountable throughout.</p>
+              <div class="card-footer">Seamless delivery</div>
+            </div>
+          </article>
+
+          <article class="why-card-full reveal">
+            <div class="card-bg"></div>
+            <img src="assets/images/why-impact.png" alt="Impact" class="card-bg-img">
+            <div class="card-content">
+              <span class="chip">Impact</span>
+              <h3 class="card-title">Transformative results</h3>
+              <p class="card-subtitle">Solutions engineered to deliver measurable, real-world outcomes.</p>
+              <div class="card-footer">Tangible value</div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FAQ ========== -->
+    <section id="faq">
+      <div class="container faq-container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Questions</p>
+          <h2 class="section-title">Frequently asked</h2>
+          <p class="section-lead">Quick answers about how we work and what we build with.</p>
+        </div>
+
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What kind of projects do you take on?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>We handle innovative work end to end, from concept to realisation, across IoT, security, embedded systems and AI, for our own products and client projects alike.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What does a custom project typically cost?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Pricing depends on the field, complexity and time required. Get in touch with your project outline and we'll walk you through a formula that fits.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Which microcontrollers do you use?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Mainly STM32 and ESP32, selected per project based on power, connectivity and real-time requirements.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What kind of robotics applications do you build?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Small and medium-scale robotic applications focused on quality and precision, mainly designed for industrial deployment.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What types of custom IoT devices do you offer?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Environmental sensors, asset trackers, smart controllers and industrial monitoring systems, tailored to your requirements.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact">
+      <div class="container contact-container">
+        <div class="contact-info reveal">
+          <p class="eyebrow">Get in touch</p>
+          <h2 class="section-title">Contact info</h2>
+          <p class="section-lead">We're at your disposal to offer the best possible service. Here are our direct details.</p>
+
+          <div class="contact-details">
+            <div class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none"><path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              <div class="contact-text">
+                <div class="contact-label">Location</div>
+                <div class="contact-value">13 rue Ribat, Manzah 8<br>2037 Ariana, Tunisia</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none"><path d="M5 4H9L11 9L8.5 10.5C9.57 12.67 11.33 14.43 13.5 15.5L15 13L20 15V19C20 19.53 19.79 20.04 19.41 20.41C19.04 20.79 18.53 21 18 21C14.1 20.76 10.42 19.11 7.66 16.34C4.89 13.58 3.24 9.9 3 6C3 5.47 3.21 4.96 3.59 4.59C3.96 4.21 4.47 4 5 4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="contact-text">
+                <div class="contact-label">Phone</div>
+                <div class="contact-value">+216 20 478 447</div>
+                <div class="contact-value">+216 58 659 373</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none"><path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="contact-text">
+                <div class="contact-label">Email</div>
+                <div class="contact-value">contact@kadanova.com</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a class="social-link" href="https://www.linkedin.com/company/kadanova/" target="_blank" rel="noopener" aria-label="Kadanova on LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.94 8.5H4V20h2.94V8.5ZM5.47 4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM20 20h-2.94v-6.05c0-1.44-.5-2.42-1.78-2.42-.97 0-1.55.65-1.8 1.28-.1.22-.12.53-.12.84V20H10.4s.04-10.68 0-11.5h2.95v1.63a2.93 2.93 0 0 1 2.66-1.47c1.94 0 3.99 1.26 3.99 3.98V20Z" fill="currentColor"/></svg>
+            </a>
+            <a class="social-link" href="https://www.facebook.com/profile.php?id=61583871494696" target="_blank" rel="noopener" aria-label="Kadanova on Facebook">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M13.5 21v-7.6h2.6l.4-3H13.5V8.4c0-.87.24-1.46 1.5-1.46h1.6V4.28C16.3 4.2 15.34 4.1 14.2 4.1c-2.3 0-3.87 1.4-3.87 3.97v2.33H7.7v3h2.63V21h3.17Z" fill="currentColor"/></svg>
+            </a>
+            <a class="social-link" href="https://www.instagram.com/kadanova_official/" target="_blank" rel="noopener" aria-label="Kadanova on Instagram">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="glass-card contact-form reveal">
+          <h2 class="card-title">Send a message</h2>
+          <p class="card-subtitle">We reply within 24 hours.</p>
+
+          <form id="contactForm">
+            <div class="form-group">
+              <label class="form-label" for="name">Your name</label>
+              <input type="text" id="name" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Your email</label>
+              <input type="email" id="email" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="subject">Subject</label>
+              <input type="text" id="subject" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea id="message" class="form-input form-textarea" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary submit-btn">Send message</button>
+          </form>
+          <div id="formMessage" class="form-message"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p class="footer-text">&copy; 2026 Kadanova &mdash; Precision beyond stars</p>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script src="script.js">
+  </script>
+</body>
+</html>

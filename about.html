@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kadanova | About Us</title>
+  <meta name="description" content="Learn about Kadanova — our mission, vision, and values." />
+  <link rel="icon" type="image/png" href="assets/logo/kadanova_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* =========================================================
+       OVERRIDES & ADDITIONS
+       ========================================================= */
+
+    /* ---- 1. Top Navbar ---- */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 90;
+      padding: 0 24px;
+      background: rgba(6, 7, 11, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color .3s var(--ease);
+    }
+    .nav-brand {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+.nav-brand img {
+  height: 34px;
+  width: auto;
+  display: block;
+  border-radius: 6px;
+  transition: opacity .3s var(--ease);
+}
+.nav-brand:hover img {
+  opacity: 0.8;
+}
+    .nav-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .3s var(--ease), background .3s var(--ease);
+    }
+    .nav-link:hover {
+      color: var(--ink-bright);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-link.active {
+      color: var(--accent-soft);
+      background: rgba(62, 160, 255, 0.12);
+    }
+    .nav-home-btn {
+      flex: 0 0 auto;
+      margin-left: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-home-btn a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink-dim);
+      transition: all .3s var(--ease);
+      text-decoration: none;
+    }
+    .nav-home-btn a:hover {
+      border-color: var(--glass-border-hi);
+      color: var(--ink-bright);
+      background: rgba(62, 160, 255, 0.10);
+      transform: translateY(-2px);
+    }
+    .nav-home-btn a svg {
+      width: 18px;
+      height: 18px;
+    }
+    @media (max-width: 768px) {
+      .top-nav { padding: 0 12px; height: 54px; }
+      .nav-link { padding: 6px 10px; font-size: 12px; }
+      .nav-home-btn a { width: 32px; height: 32px; }
+      .nav-home-btn a svg { width: 16px; height: 16px; }
+    }
+    @media (max-width: 480px) {
+      .nav-link { padding: 4px 8px; font-size: 11px; }
+      .top-nav { padding: 0 8px; }
+    }
+
+    .side-nav, .brand-fixed { display: none !important; }
+    .scroll-rail { left: 22px; top: 50%; transform: translateY(-50%); }
+
+    /* ---- 2. About Hero ---- */
+    .about-hero {
+      position: relative;
+      min-height: 45vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0;
+      margin-top: 60px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--glass-border);
+      overflow: hidden;
+    }
+    .about-hero-image-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .about-hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.3;
+    }
+    .about-hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(6, 7, 11, 0.60);
+      backdrop-filter: blur(2px) saturate(120%);
+      -webkit-backdrop-filter: blur(2px) saturate(120%);
+    }
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .about-hero-content .eyebrow {
+      color: var(--accent-soft);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+    .about-hero-content h1 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 800;
+      font-size: clamp(42px, 7vw, 76px);
+      color: var(--ink-bright);
+      margin: 0 0 16px;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .about-hero-content h1 span {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .about-hero-content p {
+      font-size: clamp(16px, 1.4vw, 20px);
+      color: var(--ink-dim);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 3. About Content ---- */
+    .about-section {
+      padding: 80px 24px 100px;
+      background: var(--bg);
+    }
+    .about-section .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .about-text h2 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 700;
+      font-size: clamp(26px, 3vw, 38px);
+      color: var(--ink-bright);
+      margin: 0 0 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .about-text h2 span {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .about-text p {
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.9;
+      margin: 0;
+      font-family: var(--font-body);
+    }
+    .about-text .highlight {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    /* ---- 4. Stats / Values Cards ---- */
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .value-card {
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
+    }
+    .value-card:hover {
+      border-color: var(--glass-border-hi);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5), 0 0 30px -10px rgba(62, 160, 255, 0.10);
+    }
+    .value-card .number {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 800;
+      font-size: 32px;
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .value-card .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* ---- 5. Footer ---- */
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-content .brand,
+    .footer-content .footer-brand { display: none !important; }
+    .footer-text {
+      font-size: 14px;
+      color: var(--ink-dim);
+      margin: 0;
+      width: 100%;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 6. Reveal animations ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- 7. Responsive ---- */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-section {
+        padding: 50px 16px 70px;
+      }
+      .about-hero {
+        min-height: 35vh;
+      }
+      .about-hero-content {
+        padding: 40px 16px;
+      }
+      .values-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .about-section {
+        padding: 30px 12px 50px;
+      }
+      .about-hero {
+        min-height: 30vh;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .value-card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grid" aria-hidden="true"></canvas>
+
+  <!-- ===== TOP NAVBAR ===== -->
+  <header class="top-nav" id="topNav">
+    <a href="index.html" class="nav-brand" aria-label="Kadanova home">
+    <img src="assets/logo/kadanova_logo.png" alt="Kadanova logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="founders.html" class="nav-link">Team</a>
+      <a href="about.html" class="nav-link active">About Us</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </div>
+    <div class="nav-home-btn">
+      <a href="index.html" aria-label="Return to home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12l9-9 9 9"/>
+          <path d="M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== SCROLL RAIL ===== -->
+  <div class="scroll-rail" id="scrollRail">
+    <div class="scroll-rail-track">
+      <div class="scroll-rail-fill" id="scrollRailFill"></div>
+    </div>
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <main>
+
+    <!-- ========== ABOUT HERO ========== -->
+    <section class="about-hero" id="about-hero">
+      <div class="about-hero-image-wrap">
+        <img src="assets/images/hero.png" alt="About Kadanova" class="about-hero-image">
+      </div>
+      <div class="about-hero-overlay"></div>
+      <div class="about-hero-content reveal">
+        <p class="eyebrow">Who we are</p>
+        <h1>About <span>Kadanova</span></h1>
+        <p>Precision engineering at the intersection of hardware, AI, and robotics, built for the edge.</p>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT CONTENT ========== -->
+    <section class="about-section" id="about-section">
+      <div class="container">
+        <div class="about-grid">
+
+          <!-- Text content -->
+          <div class="about-text reveal">
+            <h2><span>Our Story</span></h2>
+            <p>Kadanova was founded by a team of engineers who believe that the most impactful technology sits closest to the physical world. We design embedded systems and applied AI that don't just work in the lab, they survive contact with reality.</p>
+            <p>From firmware to neural nets, we bring product‑oriented engineering to latency‑critical, resource‑constrained environments. Our platforms power industrial safety systems, autonomous robotics, and IoT infrastructure across the globe.</p>
+            <p><span class="highlight">We don't chase trends. We chase reliability.</span></p>
+          </div>
+
+          <!-- Stats / Values -->
+          <div class="values-grid reveal">
+            <div class="value-card">
+              <span class="number">100%</span>
+              <span class="label">Edge‑First Design</span>
+            </div>
+            <div class="value-card">
+              <span class="number">99.9%</span>
+              <span class="label">Uptime Delivered</span>
+            </div>
+            <div class="value-card">
+              <span class="number">100%</span>
+              <span class="label">work efficiency</span>
+            </div>
+            <div class="value-card">
+              <span class="number">0</span>
+              <span class="label">Compromises on Quality</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container footer-content">
+      <p class="footer-text">&copy; 2026 Kadanova &mdash; Precision beyond stars</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script src="script.js">
+  </script>
+
+  <!-- ===== REVEAL OBSERVER ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.reveal');
+      if (items.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        items.forEach(item => observer.observe(item));
+      }
+    });
+  </script>
+</body>
+</html>

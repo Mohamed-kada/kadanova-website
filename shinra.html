@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kadanova | Shinra</title>
+  <meta name="description" content="Shinra — real‑time environmental monitoring with edge AI." />
+    <link rel="icon" type="image/png" href="assets/logo/kadanova_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* =========================================================
+       OVERRIDES & ADDITIONS
+       ========================================================= */
+
+    /* ---- 1. Top Navbar (same as projects) ---- */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 90;
+      padding: 0 24px;
+      background: rgba(6, 7, 11, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color .3s var(--ease);
+    }
+    .nav-brand {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-brand img {
+  height: 34px;
+  width: auto;
+  display: block;
+  border-radius: 6px;
+  transition: opacity .3s var(--ease);
+}
+.nav-brand:hover img {
+  opacity: 0.8;
+}
+    .nav-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .3s var(--ease), background .3s var(--ease);
+    }
+    .nav-link:hover {
+      color: var(--ink-bright);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-link.active {
+      color: var(--accent-soft);
+      background: rgba(62, 160, 255, 0.12);
+    }
+    .nav-home-btn {
+      flex: 0 0 auto;
+      margin-left: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-home-btn a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink-dim);
+      transition: all .3s var(--ease);
+      text-decoration: none;
+    }
+    .nav-home-btn a:hover {
+      border-color: var(--glass-border-hi);
+      color: var(--ink-bright);
+      background: rgba(62, 160, 255, 0.10);
+      transform: translateY(-2px);
+    }
+    .nav-home-btn a svg {
+      width: 18px;
+      height: 18px;
+    }
+    @media (max-width: 768px) {
+      .top-nav { padding: 0 12px; height: 54px; }
+      .nav-link { padding: 6px 10px; font-size: 12px; }
+      .nav-home-btn a { width: 32px; height: 32px; }
+      .nav-home-btn a svg { width: 16px; height: 16px; }
+    }
+    @media (max-width: 480px) {
+      .nav-link { padding: 4px 8px; font-size: 11px; }
+      .top-nav { padding: 0 8px; }
+    }
+
+    .side-nav, .brand-fixed { display: none !important; }
+    .scroll-rail { left: 22px; top: 50%; transform: translateY(-50%); }
+
+    /* ---- 2. Project Hero ---- */
+    .project-hero {
+      position: relative;
+      min-height: 55vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+      margin-top: 60px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .project-hero-image-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .project-hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.5;
+    }
+    .project-hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(6, 7, 11, 0.60);
+      backdrop-filter: blur(2px) saturate(120%);
+      -webkit-backdrop-filter: blur(2px) saturate(120%);
+    }
+    .project-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 60px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .project-hero-content .eyebrow {
+      color: var(--accent-soft);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+    .project-hero-content h1 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 800;
+      font-size: clamp(48px, 8vw, 88px);
+      color: var(--ink-bright);
+      margin: 0 0 16px;
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .project-hero-content h1 span {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .project-hero-content p {
+      font-size: clamp(16px, 1.4vw, 20px);
+      color: var(--ink-dim);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 3. Project Detail ---- */
+    .project-detail {
+      padding: 80px 24px 100px;
+      background: var(--bg);
+    }
+    .project-detail .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .detail-image-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-fill);
+      aspect-ratio: 16/10;
+      transition: transform .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+    }
+    .detail-image-wrap:hover {
+      transform: scale(1.01);
+      border-color: var(--glass-border-hi);
+      box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7), 0 0 40px -14px rgba(62, 160, 255, 0.15);
+    }
+    .detail-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .detail-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .detail-content h2 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 700;
+      font-size: clamp(28px, 3.2vw, 40px);
+      color: var(--ink-bright);
+      margin: 0 0 16px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .detail-content h2 span {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .detail-content .description {
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.9;
+      margin: 0 0 20px;
+      font-family: var(--font-body);
+    }
+    .detail-content .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-soft);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      font-family: var(--font-body);
+      transition: color .3s var(--ease), transform .3s var(--ease);
+      margin-top: 8px;
+    }
+    .detail-content .back-link:hover {
+      color: var(--accent);
+      transform: translateX(-4px);
+    }
+
+    /* ---- 4. Footer ---- */
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-content .brand,
+    .footer-content .footer-brand { display: none !important; }
+    .footer-text {
+      font-size: 14px;
+      color: var(--ink-dim);
+      margin: 0;
+      width: 100%;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 5. Reveal animations ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- 6. Responsive ---- */
+    @media (max-width: 900px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .project-detail {
+        padding: 50px 16px 70px;
+      }
+      .project-hero {
+        min-height: 40vh;
+      }
+      .project-hero-content {
+        padding: 40px 16px;
+      }
+    }
+    @media (max-width: 480px) {
+      .project-detail {
+        padding: 30px 12px 50px;
+      }
+      .project-hero {
+        min-height: 30vh;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .detail-image-wrap:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grid" aria-hidden="true"></canvas>
+
+  <!-- ===== TOP NAVBAR ===== -->
+  <header class="top-nav" id="topNav">
+    <a href="index.html" class="nav-brand" aria-label="Kadanova home">
+    <img src="assets/logo/kadanova_logo.png" alt="Kadanova logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="projects.html" class="nav-link active">Projects</a>
+      <a href="founders.html" class="nav-link">Team</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </div>
+    <div class="nav-home-btn">
+      <a href="index.html" aria-label="Return to home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12l9-9 9 9"/>
+          <path d="M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== SCROLL RAIL ===== -->
+  <div class="scroll-rail" id="scrollRail">
+    <div class="scroll-rail-track">
+      <div class="scroll-rail-fill" id="scrollRailFill"></div>
+    </div>
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <main>
+
+    <!-- ========== PROJECT HERO ========== -->
+    <section class="project-hero" id="project-hero">
+      <div class="project-hero-image-wrap">
+        <img src="assets/images/project-shinra.jpg" alt="Shinra hero" class="project-hero-image">
+      </div>
+      <div class="project-hero-overlay"></div>
+      <div class="project-hero-content reveal">
+        <p class="eyebrow">Project</p>
+        <h1><span>Shinra</span></h1>
+        <p>Real‑time environmental monitoring · Edge AI · Industrial safety</p>
+      </div>
+    </section>
+
+    <!-- ========== PROJECT DETAIL ========== -->
+    <section class="project-detail" id="project-detail">
+      <div class="container">
+        <div class="detail-grid">
+          <div class="detail-image-wrap reveal">
+            <img src="assets/images/project-shinra.jpg" alt="Shinra project detail">
+          </div>
+          <div class="detail-content reveal">
+            <h2><span>Overview</span></h2>
+            <p class="description">Shinra is a real‑time environmental monitoring system built for industrial safety. It combines low‑power sensor fusion with edge AI to detect anomalies before they escalate. Designed for harsh environments, it runs autonomously for months on a single battery.</p>
+            <p class="description">The system integrates gas sensors, thermal imaging, and vibration analysis into a compact, rugged enclosure. On‑device inference triggers instant alerts, while cloud sync enables fleet‑wide analytics.</p>
+            <a href="projects.html" class="back-link">← Back to all projects</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container footer-content">
+      <p class="footer-text">&copy; 2026 Kadanova &mdash; Precision beyond stars</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script src="script.js">
+  </script>
+
+  <!-- ===== REVEAL OBSERVER (matching projects page) ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.reveal');
+      if (items.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        items.forEach(item => observer.observe(item));
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kadanova | Founders</title>
+  <meta name="description" content="Meet the founders of Kadanova." />
+  <link rel="icon" type="image/png" href="assets/logo/kadanova_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* =========================================================
+       OVERRIDES & ADDITIONS
+       ========================================================= */
+
+    /* ---- 1. Top Navbar ---- */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 90;
+      padding: 0 24px;
+      background: rgba(6, 7, 11, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color .3s var(--ease);
+    }
+    .nav-brand {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-brand img {
+      height: 34px;
+      width: auto;
+      display: block;
+      border-radius: 6px;
+      transition: opacity .3s var(--ease);
+    }
+    .nav-brand:hover img {
+      opacity: 0.8;
+    }
+    .nav-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .3s var(--ease), background .3s var(--ease);
+    }
+    .nav-link:hover {
+      color: var(--ink-bright);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-link.active {
+      color: var(--accent-soft);
+      background: rgba(62, 160, 255, 0.12);
+    }
+    .nav-home-btn {
+      flex: 0 0 auto;
+      margin-left: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-home-btn a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink-dim);
+      transition: all .3s var(--ease);
+      text-decoration: none;
+    }
+    .nav-home-btn a:hover {
+      border-color: var(--glass-border-hi);
+      color: var(--ink-bright);
+      background: rgba(62, 160, 255, 0.10);
+      transform: translateY(-2px);
+    }
+    .nav-home-btn a svg {
+      width: 18px;
+      height: 18px;
+    }
+    @media (max-width: 768px) {
+      .top-nav { padding: 0 12px; height: 54px; }
+      .nav-link { padding: 6px 10px; font-size: 12px; }
+      .nav-home-btn a { width: 32px; height: 32px; }
+      .nav-home-btn a svg { width: 16px; height: 16px; }
+    }
+    @media (max-width: 480px) {
+      .nav-link { padding: 4px 8px; font-size: 11px; }
+      .top-nav { padding: 0 8px; }
+    }
+
+    .side-nav, .brand-fixed { display: none !important; }
+    .scroll-rail { left: 22px; top: 50%; transform: translateY(-50%); }
+
+    /* ---- 2. Founders Hero ---- */
+    .founders-hero {
+      position: relative;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0;
+      margin-top: 60px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .founders-hero-content {
+      padding: 60px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .founders-hero-content .eyebrow {
+      color: var(--accent-soft);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+    .founders-hero-content h1 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 800;
+      font-size: clamp(42px, 7vw, 76px);
+      color: var(--ink-bright);
+      margin: 0 0 16px;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .founders-hero-content h1 span {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent-soft) 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .founders-hero-content p {
+      font-size: clamp(16px, 1.4vw, 20px);
+      color: var(--ink-dim);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 3. Founder Sections – full‑width, photo left, text right ---- */
+    .founder-section {
+      padding: 40px 24px;  /* reduced from 60px */
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .founder-section:last-of-type {
+      border-bottom: none;
+    }
+    .founder-section .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    /* ---- Glassy background (frosted glass, like cards) ---- */
+    .founder-section .glass-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: rgba(255, 255, 255, 0.04);  /* subtle transparency */
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      margin: 8px;  /* reduced from 12px */
+      transition: border-color .4s var(--ease), box-shadow .4s var(--ease);
+      pointer-events: none;
+      opacity: 1;  /* fully visible */
+    }
+    .founder-section:hover .glass-bg {
+      border-color: var(--glass-border-hi);
+      box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7), 0 0 60px -20px rgba(62, 160, 255, 0.10);
+    }
+
+    /* ---- Shine sweep (the glassy effect) ---- */
+    .founder-section::after {
+      content: '';
+      position: absolute;
+      inset: 8px;  /* match margin */
+      z-index: 1;
+      pointer-events: none;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.00) 0%,
+          rgba(255, 255, 255, 0.00) 40%,
+          rgba(255, 255, 255, 0.04) 48%,
+          rgba(255, 255, 255, 0.08) 52%,
+          rgba(255, 255, 255, 0.00) 60%,
+          rgba(255, 255, 255, 0.00) 100%);
+      opacity: 0;
+      transform: translateX(-100%) skewX(-15deg);
+      transition: opacity .5s var(--ease), transform .7s var(--ease);
+    }
+    .founder-section:hover::after {
+      opacity: 1;
+      transform: translateX(100%) skewX(-15deg);
+    }
+
+    /* ---- Photo – square with rounded corners ---- */
+    .founder-photo {
+      flex: 0 0 280px;
+      aspect-ratio: 1/1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 2px solid var(--glass-border);
+      transition: border-color .4s var(--ease), box-shadow .4s var(--ease);
+      position: relative;
+      z-index: 2;
+    }
+    .founder-section:hover .founder-photo {
+      border-color: var(--glass-border-hi);
+      box-shadow: 0 0 40px rgba(62, 160, 255, 0.15);
+    }
+    .founder-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .founder-info {
+      flex: 1;
+      position: relative;
+      z-index: 2;
+    }
+    .founder-info h2 {
+      font-family: 'Orbitron', var(--font-display);
+      font-weight: 700;
+      font-size: clamp(28px, 3.4vw, 44px);
+      color: var(--ink-bright);
+      margin: 0 0 4px;
+      letter-spacing: 0.04em;
+    }
+    .founder-info .position {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 16px;
+    }
+    .founder-info .description {
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.8;
+      margin: 0;
+      max-width: 600px;
+    }
+
+    /* ---- 4. Footer ---- */
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-content .brand,
+    .footer-content .footer-brand { display: none !important; }
+    .footer-text {
+      font-size: 14px;
+      color: var(--ink-dim);
+      margin: 0;
+      width: 100%;
+      font-family: var(--font-body);
+    }
+
+    /* ---- 5. Reveal animations ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- 6. Responsive ---- */
+    @media (max-width: 900px) {
+      .founder-section .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+      }
+      .founder-photo {
+        flex: 0 0 200px;
+        width: 200px;
+      }
+      .founder-info .description {
+        max-width: 100%;
+      }
+      .founder-section {
+        padding: 30px 16px;  /* reduced for mobile */
+      }
+    }
+    @media (max-width: 480px) {
+      .founder-photo {
+        flex: 0 0 160px;
+        width: 160px;
+      }
+      .founder-section {
+        padding: 20px 12px;  /* further reduced */
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .founder-section::after {
+        display: none;
+      }
+      .founder-section:hover .glass-bg {
+        border-color: var(--glass-border);
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grid" aria-hidden="true"></canvas>
+
+  <!-- ===== TOP NAVBAR ===== -->
+  <header class="top-nav" id="topNav">
+    <a href="index.html" class="nav-brand" aria-label="Kadanova home">
+      <img src="assets/logo/kadanova_logo.png" alt="Kadanova logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="founders.html" class="nav-link active">Team</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </div>
+    <div class="nav-home-btn">
+      <a href="index.html" aria-label="Return to home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12l9-9 9 9"/>
+          <path d="M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== SCROLL RAIL ===== -->
+  <div class="scroll-rail" id="scrollRail">
+    <div class="scroll-rail-track">
+      <div class="scroll-rail-fill" id="scrollRailFill"></div>
+    </div>
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <main>
+
+    <!-- ========== FOUNDERS HERO ========== -->
+    <section class="founders-hero" id="founders-hero">
+      <div class="founders-hero-content reveal">
+        <p class="eyebrow">The team</p>
+        <h1>Meet the <span>Team</span></h1>
+        <p>The visionaries behind KADANOVA</p>
+        <p>The engineers, scientists, and builders shaping the future of embedded AI and robotics.</p>
+
+      </div>
+    </section>
+
+    <!-- ========== FOUNDER 1: Alex Kadan ========== -->
+    <section class="founder-section" id="founder-alex">
+      <div class="glass-bg"></div>
+      <div class="container reveal">
+        <div class="founder-photo">
+        <img src="assets/images/kada.jpg" alt="MK">      
+        </div>
+        <div class="founder-info">
+          <h2>Mohamed Kada</h2>
+          <p class="position">CEO &amp; Co-founder </p>
+          <p class="description">Embedded Systems engineer, Robotics, and AI engineer, specialized in low level programming and system architecture, the heart, focal point, center of the team, the constellation kadanova navigates its entire existence by</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FOUNDER 2: Jamie Rivera ========== -->
+    <section class="founder-section" id="founder-jamie">
+      <div class="glass-bg"></div>
+      <div class="container reveal">
+        <div class="founder-photo">
+        <img src="assets/images/amine.jpg" alt="MA">      
+        </div>
+        <div class="founder-info">
+          <h2>Mohamed Amine Bouallegui</h2>
+          <p class="position">CTO &amp; CO-founder</p>
+          <p class="description">Embedded Systems, Robotics, and Computer Vision engineer, chart the course through the void with the precision of a celestial map, turning every client encounter into a symphony written in the language of stars. </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FOUNDER 3: Sam Chen ========== -->
+    <section class="founder-section" id="founder-sam">
+      <div class="glass-bg"></div>
+      <div class="container reveal">
+        <div class="founder-photo">
+        <img src="assets/images/yessmine.jpg" alt="YM">      
+          </div>
+        <div class="founder-info">
+          <h2>Yesmine Mejri</h2>
+          <p class="position">Technical Business Development Manager</p>
+          <p class="description">Product Owner - Data Science and AI engineer, the luminous core of kadanova nebula, the first impression that ignites belief, the radiant gravity that pulls partners into our orbit, and the enduring glow that proves kadanova is more than just dust and gas</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container footer-content">
+      <p class="footer-text">&copy; 2026 Kadanova &mdash; Precision beyond stars</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script src="script.js">
+  </script>
+
+  <!-- ===== REVEAL OBSERVER ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.reveal');
+      if (items.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        items.forEach(item => observer.observe(item));
+      }
+    });
+  </script>
+</body>
+</html>
